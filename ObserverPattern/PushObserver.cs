@@ -6,20 +6,6 @@ using System.Threading.Tasks;
 
 namespace ObserverPattern
 {
-
-    public interface ICustomObserver<in T>
-    {
-        void Update(T updates);
-    }
-
-    public interface ICustomObservable<T>
-    {
-        void AddObserver(ICustomObserver<T> observer);
-        void RemoveObserver(ICustomObserver<T> observer);
-        void NotifyObserver();
-        void Update(T updates);
-    }
-
     public class WeatherUpdates
     {
         public decimal Temperature { get; set; }
@@ -29,19 +15,19 @@ namespace ObserverPattern
     /// <summary>
     /// This class is also knownas the subject
     /// </summary>
-    public class PushTemperateObservable:ICustomObservable<WeatherUpdates>
+    public class PushTemperatePushObservable:ICustomPushObservable<WeatherUpdates>
     {
-        readonly List<ICustomObserver<WeatherUpdates>> _observerCollection = new List<ICustomObserver<WeatherUpdates>>();
+        readonly List<ICustomPushObserver<WeatherUpdates>> _observerCollection = new List<ICustomPushObserver<WeatherUpdates>>();
         private WeatherUpdates _weatherUpdates;
 
-        public void AddObserver(ICustomObserver<WeatherUpdates> observer)
+        public void AddObserver(ICustomPushObserver<WeatherUpdates> pushObserver)
         {
-            _observerCollection.Add(observer);    
+            _observerCollection.Add(pushObserver);    
         }
 
-        public void RemoveObserver(ICustomObserver<WeatherUpdates> observer)
+        public void RemoveObserver(ICustomPushObserver<WeatherUpdates> pushObserver)
         {
-            _observerCollection.Remove(observer);
+            _observerCollection.Remove(pushObserver);
         }
 
         
@@ -57,19 +43,19 @@ namespace ObserverPattern
         }
     }
 
-    public class MobilePhoneTemperaturePushObserver : ICustomObserver<WeatherUpdates>
+    public class MobilePhoneTemperaturePushPushObserver : ICustomPushObserver<WeatherUpdates>
     {
         public void Update(WeatherUpdates updates)
         {
-            Console.WriteLine("I am mobile Phone observer. Current Temperature {0} and Humidity {1}",updates.Temperature,updates.Temperature);
+            Console.WriteLine("I am mobile Phone observer. Current Temperature {0} and Humidity {1}",updates.Temperature,updates.Humidity);
         }
     }
 
-    public class BillBoardTemperaturePushObserver : ICustomObserver<WeatherUpdates>
+    public class BillBoardTemperaturePushPushObserver : ICustomPushObserver<WeatherUpdates>
     {
         public void Update(WeatherUpdates updates)
         {
-            Console.WriteLine("I am Bill Board observer. Current Temperature {0} and Humidity {1}", updates.Temperature, updates.Temperature);
+            Console.WriteLine("I am Bill Board observer. Current Temperature {0} and Humidity {1}", updates.Temperature, updates.Humidity);
         }
     }
 }

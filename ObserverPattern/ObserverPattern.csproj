@@ -39,6 +39,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ICustomPushObservable.cs" />
+    <Compile Include="ICustomPushObserver.cs" />
+    <Compile Include="PullObserver.cs" />
     <Compile Include="PushObserver.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
